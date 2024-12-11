@@ -32,10 +32,11 @@ const ShareModal = ({ roomId, collaborators, creatorId, currentUserType }: Share
   const shareDocumentHandler = async () => {
     setLoading(true);
 
-    await updateDocumentAccess({ 
-      roomId, 
-      email, 
-      userType: userType as UserType, 
+    const normalizedEmail = email.trim().toLowerCase();
+    await updateDocumentAccess({
+      roomId,
+      email,
+      userType: userType as UserType,
       updatedBy: user.info,
     });
 
@@ -69,14 +70,14 @@ const ShareModal = ({ roomId, collaborators, creatorId, currentUserType }: Share
         </Label>
         <div className="flex items-center gap-3">
           <div className="flex flex-1 rounded-md bg-dark-400">
-            <Input 
+            <Input
               id="email"
               placeholder="Enter email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="share-input"
             />
-            <UserTypeSelector 
+            <UserTypeSelector
               userType={userType}
               setUserType={setUserType}
             />
@@ -89,7 +90,7 @@ const ShareModal = ({ roomId, collaborators, creatorId, currentUserType }: Share
         <div className="my-2 space-y-2">
           <ul className="flex flex-col">
             {collaborators.map((collaborator) => (
-              <Collaborator 
+              <Collaborator
                 key={collaborator.id}
                 roomId={roomId}
                 creatorId={creatorId}
